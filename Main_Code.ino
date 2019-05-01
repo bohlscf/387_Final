@@ -7,8 +7,9 @@ int16_t AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ;
 int green = 7;
 int buttonPin = 2;
 
-  int reps = 0;
-  int repFlag = 0;
+int reps = 0;
+int repFlag = 0;
+int timer = 0;  
 
 void setup(){
   Wire.begin();
@@ -56,7 +57,14 @@ void loop(){
   }
   delay(100);
   
-  if(digitalRead(buttonPin) == HIGH){
+  if(digitalRead(buttonPin) == HIGH && timer == 0){
     Serial.println("I HAVE BEEN PRESSED");
+    timer = 30;
+    Serial.println(timer);
+  }
+  while(timer > 0 && digitalRead(buttonPin) == LOW){
+    timer--;
+    delay(1000);    
+    Serial.println(timer);
   }
 }
